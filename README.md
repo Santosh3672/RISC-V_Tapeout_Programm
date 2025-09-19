@@ -1,5 +1,9 @@
 \# RISCV Tapeout program
 
+<details>
+
+&nbsp;	<summary> Week 0: </summary>
+
 \## Week 0:
 
 \### Getting started with Digital VLSI SOC Design and Planning:
@@ -113,4 +117,6 @@ $ sudo apt-get install iverilog`
 
 
 IMAGE HERE
+
+</details>
 
