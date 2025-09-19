@@ -44,12 +44,15 @@ IMAGE HERE
 
 
 5. **Physical Design Flow**: The integrated SoC is now converted to logic gates and the gates are planned on a physical die.  
+
     i. **Physical Design**
     - Floorplanning
     - Placement
     - CTS
-    - Routing
-    ii. **GDSII generation** : A Graphical data stream information interchange (GDSII) contains information about layers required for fabrication of chip.
+    - Routing  
+
+    ii. **GDSII generation** : A Graphical data stream information interchange (GDSII) contains information about layers required for fabrication of chip.  
+
     iii. Verification checks
     - **DRC (Design Rule Check)** ensures manufacturability.
     - **LVS (Layout vs. Schematic)** ensures functional correctness.
@@ -57,6 +60,7 @@ IMAGE HERE
     iv. Tapeout and Tapein  
     - **Tapeout**: GDSII is sent to the foundry for fabrication.
     - **Tapein**: Fabricated chips are received from the foundry.  
+
     v. Board-Level Validation
     - The chip is packaged and tested at board level.
     - Output (**O4**) is compared with expected SoC output.
