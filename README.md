@@ -35,8 +35,7 @@ Steps in Chip modelling:
             - Designed using MOSFET transistors.
             - Require functional RTL only; synthesis is not needed.
 
-    Then all these components are integrated together with GPIOs for designing the hardware.  
-    The output of the SoC is then measured(O3) and compared with RTL architecture for testing.
+    Then all these components are integrated together with GPIOs for designing the hardware. The output of the SoC is then measured(O3) and compared with RTL architecture for testing.
 
 
 
@@ -44,13 +43,10 @@ IMAGE HERE
 
 
 
-5. **Physical Design Flow**: The integrated SoC is now converted to logic gates and the gates are planned on a physical die. It includes Floowplanning, Placement, CTS, Routing.
-
-After Physical design we generate GDSII file (graphical data stream information interchange) it contains information about the layers that are required for fabrication.
-
-On the GDSII we check DRC to check if it can be manufacture and LVS to check it functions as per the SoC . After these checks are passed we send the GDSII to fabrication which is called as **tapeout**,
-
-After fabrication we get the chips back from foundry which is called **tapein**, the chip is then used for package and the output of the chip(O4) is measured at board level which is again compared with SoC output.
+5. **Physical Design Flow**: The integrated SoC is now converted to logic gates and the gates are planned on a physical die. It includes steps like Floorplanning, Placement, CTS, Routing.  
+    After Physical design we generate GDSII file (graphical data stream information interchange) it contains information about the layers that are required for fabrication.  
+    On the GDSII we check DRC to check if it can be manufacture and LVS to check it functions as per the SoC . After these checks are passed we send the GDSII to fabrication which is called as **tapeout**.  
+    After fabrication we get the chips back from foundry which is called **tapein**, the chip is then used for package and the output of the chip(O4) is measured at board level which is again compared with SoC output.
 
 
 
@@ -66,9 +62,8 @@ IMAGE HERE
 
 Command used
 
-
-
-`$ sudo apt-get update
+```
+$ sudo apt-get update
 
 $ git clone https://github.com/YosysHQ/yosys.git
 
@@ -88,8 +83,8 @@ $ make config-gcc
 
 $ make
 
-$ sudo make install`
-
+$ sudo make install
+```
 
 
 IMAGE HERE
@@ -102,10 +97,11 @@ Command Used
 
 
 
-`$ sudo apt-get update
+```
+$ sudo apt-get update
 
-$ sudo apt-get install iverilog`
-
+$ sudo apt-get install iverilog
+```
 
 
 IMAGE HERE
@@ -117,11 +113,11 @@ IMAGE HERE
 Command Used
 
 
+```
+$ sudo apt-get update
 
-`$ sudo apt-get update
-
-$ sudo apt-get install iverilog`
-
+$ sudo apt-get install iverilog
+```
 
 
 IMAGE HERE
