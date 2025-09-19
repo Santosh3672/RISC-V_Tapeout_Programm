@@ -2,9 +2,9 @@
 
 <details>
 
-&nbsp;	<summary> Week 0: </summary>
+&nbsp;	<summary> Week 0:  Digital VLSI SoC Planning and Tool Installation </summary>
 
-## Week 0:
+## Week 0: Digital VLSI SoC Planning and Tool Installation
 
 ### Getting started with Digital VLSI SOC Design and Planning:
 
