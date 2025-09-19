@@ -1,4 +1,4 @@
-\# RISCV Tapeout program 
+\# RISCV Tapeout program
 
 \## Week 0:
 
@@ -34,7 +34,7 @@ IMAGE HERE
 
 5\. \*\*Physical Design Flow\*\*: The integrated SoC is now converted to logic gates and the gates are planned on a physical die. It includes Floowplanning, Placement, CTS, Routing.
 
-After Physical design we generate GDSII file (graphical data stream information interchange) it contains information about the layers that are required for fabrication. 
+After Physical design we generate GDSII file (graphical data stream information interchange) it contains information about the layers that are required for fabrication.
 
 On the GDSII we check DRC to check if it can be manufacture and LVS to check it functions as per the SoC . After these checks are passed we send the GDSII to fabrication which is called as \*\*tapeout\*\*,
 
@@ -56,25 +56,25 @@ Command used
 
 
 
-`$ sudo apt-get update 
+`$ sudo apt-get update
 
-$ git clone https://github.com/YosysHQ/yosys.git 
+$ git clone https://github.com/YosysHQ/yosys.git
 
-$ cd yosys 
+$ cd yosys
 
-$ sudo apt install make (If make is not installed please install it) 
+$ sudo apt install make (If make is not installed please install it)
 
-$ sudo apt-get install build-essential clang bison flex \\ 
+$ sudo apt-get install build-essential clang bison flex \\
 
-libreadline-dev gawk tcl-dev libffi-dev git \\ 
+libreadline-dev gawk tcl-dev libffi-dev git \\
 
-graphviz xdot pkg-config python3 libboost-system-dev \\ 
+graphviz xdot pkg-config python3 libboost-system-dev \\
 
-libboost-python-dev libboost-filesystem-dev zlib1g-dev 
+libboost-python-dev libboost-filesystem-dev zlib1g-dev
 
-$ make config-gcc 
+$ make config-gcc
 
-$ make 
+$ make
 
 $ sudo make install`
 
