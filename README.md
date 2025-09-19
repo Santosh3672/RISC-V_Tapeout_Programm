@@ -4,7 +4,7 @@ RISC-V tapeout program Organized by IITGN and VSD
 
 
 
-\## \*\*Week 0:\*\*
+\## Week 0:
 
 \### Getting started with Digital VLSI SOC Design and Planning:
 
