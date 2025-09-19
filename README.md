@@ -2,7 +2,7 @@
 
 <details>
 
-	<summary> Week 0: </summary>
+&nbsp;	<summary> Week 0: </summary>
 
 ## Week 0:
 
