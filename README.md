@@ -43,10 +43,23 @@ IMAGE HERE
 
 
 
-5. **Physical Design Flow**: The integrated SoC is now converted to logic gates and the gates are planned on a physical die. It includes steps like Floorplanning, Placement, CTS, Routing.  
-    After Physical design we generate GDSII file (graphical data stream information interchange) it contains information about the layers that are required for fabrication.  
-    On the GDSII we check DRC to check if it can be manufacture and LVS to check it functions as per the SoC . After these checks are passed we send the GDSII to fabrication which is called as **tapeout**.  
-    After fabrication we get the chips back from foundry which is called **tapein**, the chip is then used for package and the output of the chip(O4) is measured at board level which is again compared with SoC output.
+5. **Physical Design Flow**: The integrated SoC is now converted to logic gates and the gates are planned on a physical die.  
+    i. **Physical Design**
+    - Floorplanning
+    - Placement
+    - CTS
+    - Routing
+    ii. **GDSII generation** : A Graphical data stream information interchange (GDSII) contains information about layers required for fabrication of chip.
+    iii. Verification checks
+    - **DRC (Design Rule Check)** ensures manufacturability.
+    - **LVS (Layout vs. Schematic)** ensures functional correctness.
+
+    iv. Tapeout and Tapein  
+    - **Tapeout**: GDSII is sent to the foundry for fabrication.
+    - **Tapein**: Fabricated chips are received from the foundry.  
+    v. Board-Level Validation
+    - The chip is packaged and tested at board level.
+    - Output (**O4**) is compared with expected SoC output.
 
 
 
@@ -71,11 +84,11 @@ $ cd yosys
 
 $ sudo apt install make (If make is not installed please install it)
 
-$ sudo apt-get install build-essential clang bison flex \\
+$ sudo apt-get install build-essential clang bison flex \
 
-libreadline-dev gawk tcl-dev libffi-dev git \\
+libreadline-dev gawk tcl-dev libffi-dev git \
 
-graphviz xdot pkg-config python3 libboost-system-dev \\
+graphviz xdot pkg-config python3 libboost-system-dev \
 
 libboost-python-dev libboost-filesystem-dev zlib1g-dev
 
