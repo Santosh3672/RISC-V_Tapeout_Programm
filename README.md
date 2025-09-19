@@ -35,9 +35,8 @@ Steps in Chip modelling:
             - Designed using MOSFET transistors.
             - Require functional RTL only; synthesis is not needed.
 
-Then all these components are integrated together with GPIOs for designing the hardware.
-
-The output of the SoC is then measured(O3) and compared with RTL architecture for testing.
+    Then all these components are integrated together with GPIOs for designing the hardware.  
+    The output of the SoC is then measured(O3) and compared with RTL architecture for testing.
 
 
 
