@@ -22,11 +22,99 @@ In this step we compile the C code in GCC and measure the output/response of the
 
 4\. \*\*SoC design flow:\*\* Now the design is divided into Processor and Peripherals/IPs.
 
-&nbsp;	i. For Processor gate level netlist is created and full PD flow is done for it.
+ 	i. For Processor gate level netlist is created and full PD flow is done for it.
 
-&nbsp;	ii. Peripherals/IPs are like blocks that can be used multiple times. We have Macros that are digital IPs that can be synthesized and Analog IPs which interact with analog signals of outside world and are designed using mosfet transistors for that we need functional RTL as synthesis is not required.
+ 	ii. Peripherals/IPs are like blocks that can be used multiple times. We have Macros that are digital IPs that can be synthesized and Analog IPs which interact with analog signals of outside world and are designed using mosfet transistors for that we need functional RTL as synthesis is not required.
 
-Then all these components of the design are integrated together with GPIOs for designing the hardware. 
+Then all these components of the design are integrated together with GPIOs for designing the hardware.
 
 The output of the SoC is then measured(O3) and compared with RTL architecture for testing.
+
+
+
+IMAGE HERE
+
+
+
+5\. \*\*Physical Design Flow\*\*: The integrated SoC is now converted to logic gates and the gates are planned on a physical die. It includes Floowplanning, Placement, CTS, Routing.
+
+After Physical design we generate GDSII file (graphical data stream information interchange) it contains information about the layers that are required for fabrication. 
+
+On the GDSII we check DRC to check if it can be manufacture and LVS to check it functions as per the SoC . After these checks are passed we send the GDSII to fabrication which is called as \*\*tapeout\*\*,
+
+After fabrication we get the chips back from foundry which is called \*\*tapein\*\*, the chip is then used for package and the output of the chip(O4) is measured at board level which is again compared with SoC output.
+
+
+
+IMAGE HERE
+
+IMAGE HERE
+
+
+
+\### Tool Installation:
+
+\*\*Yosys\*\*
+
+Command used
+
+
+
+`$ sudo apt-get update 
+
+$ git clone https://github.com/YosysHQ/yosys.git 
+
+$ cd yosys 
+
+$ sudo apt install make (If make is not installed please install it) 
+
+$ sudo apt-get install build-essential clang bison flex \\ 
+
+libreadline-dev gawk tcl-dev libffi-dev git \\ 
+
+graphviz xdot pkg-config python3 libboost-system-dev \\ 
+
+libboost-python-dev libboost-filesystem-dev zlib1g-dev 
+
+$ make config-gcc 
+
+$ make 
+
+$ sudo make install`
+
+
+
+IMAGE HERE
+
+
+
+\*\*Iverilog\*\*
+
+Command Used
+
+
+
+`$ sudo apt-get update
+
+$ sudo apt-get install iverilog`
+
+
+
+IMAGE HERE
+
+
+
+\*\*gtkwave\*\*
+
+Command Used
+
+
+
+`$ sudo apt-get update
+
+$ sudo apt-get install iverilog`
+
+
+
+IMAGE HERE
 
