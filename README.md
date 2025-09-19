@@ -19,11 +19,23 @@ Steps in Chip modelling:
 
 3. **RTL Architecture:** After specs of chip are finalized a soft copy of hardware language is written which is an abstract version of hardware language like Verilog. This is an intermediate level between HDL and C model. The architecture is tested using same testbench in C language and its output(O2) is matched with C model of previous step.
 
-4. **SoC design flow:** Now the design is divided into Processor and Peripherals/IPs.  
-    i. For Processor gate level netlist is created and full PD flow is done for it.  
-   ii. Peripherals/IPs are like blocks that can be used multiple times. We have Macros that are digital IPs that can be synthesized and Analog IPs which interact with analog signals of outside world and are designed using mosfet transistors for that we need functional RTL as synthesis is not required.
+4. **SoC design flow:**  The design is divided into two components.  
+    i. **Processor**
+    - A gate-level netlist is created.
+    - Full Physical Design (PD) flow is performed, including floorplanning, placement, routing, CTS, STA, and signoff.
 
-Then all these components of the design are integrated together with GPIOs for designing the hardware.
+    ii. **Peripherals / IPs**
+    - These are modular blocks that can be reused across designs.
+    - There are two types of IPs:
+        - **Digital IPs (Macros):**
+            - Can be synthesized.
+            - Used for standard digital logic functions.
+        - **Analog IPs:**
+            - Interact with external analog signals.
+            - Designed using MOSFET transistors.
+            - Require functional RTL only; synthesis is not needed.
+
+Then all these components are integrated together with GPIOs for designing the hardware.
 
 The output of the SoC is then measured(O3) and compared with RTL architecture for testing.
 
