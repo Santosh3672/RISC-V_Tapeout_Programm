@@ -1,4 +1,4 @@
-\#RISCV Tapeout program
+# RISCV Tapeout program
 
 <details>
 
