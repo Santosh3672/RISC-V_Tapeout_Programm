@@ -1,8 +1,4 @@
-##### \# RISC-V\_Tapeout\_Programm
-
-RISC-V tapeout program Organized by IITGN and VSD
-
-
+\# RISCV Tapeout program
 
 \## Week 0:
 
