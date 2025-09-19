@@ -12,9 +12,8 @@ A chip is designed with a goal of running any specific application. The applicat
 
 Steps in Chip modelling:
 
-1. **GCC:** In the first step we want to ensure that the application is correct by construction with the GCC compiler.
-
-In this step we compile the C code in GCC and measure the output/response of the code/application (O0).
+1. **GCC:** In the first step we want to ensure that the application is correct by construction with the GCC compiler. 
+    In this step we compile the C code in GCC and measure the output/response of the code/application (O0).
 
 2. **Specification modelling:** In this step we model the specification of the chip in a C environment and test its output with the GCC compiled code. The response/output of this steps(O1) must match with the GCC compiled code using a C language testbench.
 
