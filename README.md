@@ -39,8 +39,8 @@ Steps in Chip modelling:
 
 
 
-IMAGE HERE
-
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Images/Week0/W0p1.png)
+*Fig: Steps in SoC planning: From specs to SoC Integration*
 
 
 5. **Physical Design Flow**: The integrated SoC is now converted to logic gates and the gates are planned on a physical die.  
@@ -64,12 +64,6 @@ IMAGE HERE
     v. Board-Level Validation
     - The chip is packaged and tested at board level.
     - Output (**O4**) is compared with expected SoC output.
-
-
-
-IMAGE HERE
-
-IMAGE HERE
 
 
 
@@ -104,7 +98,8 @@ $ sudo make install
 ```
 
 
-IMAGE HERE
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Images/Week0/W0p4.png)
+*Fig: Yosys installation*
 
 
 
@@ -121,7 +116,8 @@ $ sudo apt-get install iverilog
 ```
 
 
-IMAGE HERE
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Images/Week0/W0p5.png)
+*Fig: Iverilog installation*
 
 
 
@@ -137,7 +133,8 @@ $ sudo apt-get install iverilog
 ```
 
 
-IMAGE HERE
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Images/Week0/W0p6.png)
+*Fig: gtkwave installation*
 
 </details>
 
