@@ -24,7 +24,8 @@ As per our previous weeks repo gate level simulation is performed to verify the 
 read_verilog -I./include ../output/compiled_tlv/rvmyth.v
 read_verilog -I./include ./module/clk_gate.v``
 
-Image W3d1p2
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p2.png)
+
 
 3. Read the library files of standard cells and analog blocks (PLL and DAC)
 
@@ -32,17 +33,20 @@ Image W3d1p2
 read_liberty -lib ./lib/avsddac.lib
 read_liberty -lib ./lib/sky130_fd_sc_hd__tt_025C_1v80.lib``
 
-Image W3d1p3
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p3.png)
+
 
 4. Synthesize the top module vsdbabysoc
 ``synth -top vsdbabysoc``
 
-Image W3d1p4
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p4.png)
+
 
 5. Map the flipflops with standard cells:
 ``dfflibmap -liberty ./lib/sky130_fd_sc_hd__tt_025C_1v80.lib``
 
-Image W3d1p5
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p5.png)
+
 
 6. Optimize design and do technology mapping:
 ``opt
@@ -55,17 +59,19 @@ setundef -zero
 clean -purge
 rename -enumerate
 ``
-Image W3d1p6
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p6.png)
 
 8. Print statistics of synthesis:
 `` stat ``
 
-Image W3d1p7
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p7.png)
+
 
 9. Write the syn netlist for GLS:
 `` write_verilog -noattr ../output/synth/vsdbabysoc.synth.v ``
 
-Image W3d1p8
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p8.png)
+
 
 ### Steps to perform GLS of BabySoC
 
@@ -84,19 +90,21 @@ testbench location is defined and include directories are mentioned including th
 `` ./output/post_synth_sim/post_synth_sim.out
 gtkwave post_synth_sim.vcd``
 
-Image W3d1p9
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p9.png)
+
 
 GLS waveform:
 Complete waveform
- Image W3d1p10
+
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p10.png)
 
 Zoomed waveform showing reset:
 
-Image W3d1p11
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p11.png)
 
 Zoomed waveform showing transition of Out
 
-Image W3d1p12
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p12.png)
 
 Observation:
 From GLS the RV_TO_DAC[9:0] waveform is a pattern of increasing and decreasing waveform as it is sum of first n integers and then in reverse order.
@@ -160,11 +168,15 @@ Transistor-Level Analysis:
     • Clk-to-Q delay: Time from clock to Q output via transmission gate/inverter
     • Hold time: Often zero if value is pre-stored
 
-    Image W3d2p1
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d2p1.png)
+
 
 Jitter and Noise Margin:
     • Eye diagram: Overlapping clock waveforms showing voltage droop/bounce
     • Jitter extraction: Noise region and reliable data window identified for STA calculations
+
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d2p2.png)
+
 
 OCV (On-Chip Variation):
     • Etching differences: Affect gate width/length, drain current, and delay
@@ -201,7 +213,8 @@ make
 4. Invoke Opensta using:
 ``sta``
 
-Image W3d3p1
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d3p1.png)
+
 
 Post Synthesis STA of BabySoC:
 
@@ -234,7 +247,8 @@ Parts of script:
 5. Reporting timing and saving in a txt file.
 
 Setup reports:
-Image W3d3p2
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d3p2.png)
+
 
 Observation: 
 It is a reg2reg setup timing path from reg `_10450_` to `_10015_`, the reg2reg datapath contains 1 clkinv (8121) and 1 o211ai (8599) cells. Having a total delay of 9.7556 ns which is data arrival time. Required data time is 11ns (clock period) – 0.1386ns (library setup time) = 10.8614ns.
@@ -244,7 +258,8 @@ As arrival time is less than required time it is passing with a slack of 10.8614
 This setup path is with least slack so it is a critical path for setup.
 
 Hold report 
-Image W3d3p3
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d3p3.png)
+
 
 It is a reg2reg hold timing path from reg `_9493_` to `_10335_` there is no combinational logic between the two regs so the data arrival time is the delay of the startpoint which is 0.2749ns.
 The data required time is library hold time which is -0.0346ns. As Arrival time is after the the required time the path is passing for hold with a slack of 0.2749 - (-0.0346) = 0.3096ns.
@@ -258,8 +273,9 @@ Details on installation and usage can be found here: (https://github.com/kanndil
 
 Following is the timing graph of the setup and hold paths discussed previously.
 
-Image W3d3p4
-Image W3d3p5
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d3p4.png)
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d3p5.png)
+
 
 
 </details>
