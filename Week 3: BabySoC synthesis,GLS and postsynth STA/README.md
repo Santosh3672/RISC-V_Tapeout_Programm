@@ -5,13 +5,13 @@ This repository documents Week 3 of the RISCV tapeout program, covering synthesi
 ---
 
 <details>
-<summary>Synthesis and GLS of BabySoC</summary>
+<summary>Synthesis and GLS of BabySoC 🏗️🧪</summary>
 
 ## Synthesis and GLS of BabySoC
 
 Gate-level simulation is performed to verify the functionality of a design after synthesis, using actual logic gates.
 
-### Steps to Perform Synthesis of BabySoC
+### Steps to Perform Synthesis of BabySoC ⚙️
 
 1. **Launch Yosys from the VSDBabySoC/src directory:**
     ```sh
@@ -19,6 +19,7 @@ Gate-level simulation is performed to verify the functionality of a design after
     yosys
     ```
     ![Yosys launch](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p1.png)
+    *Fig: Launching Yosys from the VSDBabySoC/src directory*
 
 2. **Read the Verilog files for vsdbabysoc and all instantiated modules:**
     ```sh
@@ -27,6 +28,7 @@ Gate-level simulation is performed to verify the functionality of a design after
     read_verilog -I./include ./module/clk_gate.v
     ```
     ![Read Verilog files](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p2.png)
+    *Fig: Reading Verilog files for BabySoC and its modules in Yosys*
 
 3. **Read the library files for standard cells and analog blocks (PLL and DAC):**
     ```sh
@@ -35,18 +37,21 @@ Gate-level simulation is performed to verify the functionality of a design after
     read_liberty -lib ./lib/sky130_fd_sc_hd__tt_025C_1v80.lib
     ```
     ![Read library files](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p3.png)
+    *Fig: Loading standard cell and analog block libraries in Yosys*
 
 4. **Synthesize the top module:**
     ```sh
     synth -top vsdbabysoc
     ```
     ![Synthesize top module](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p4.png)
+    *Fig: Synthesizing the top-level BabySoC module*
 
 5. **Map flip-flops to standard cells:**
     ```sh
     dfflibmap -liberty ./lib/sky130_fd_sc_hd__tt_025C_1v80.lib
     ```
     ![Map flip-flops](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p5.png)
+    *Fig: Mapping flip-flops to standard cells during synthesis*
 
 6. **Optimize design and perform technology mapping:**
     ```sh
@@ -62,22 +67,25 @@ Gate-level simulation is performed to verify the functionality of a design after
     rename -enumerate
     ```
     ![Final cleanup](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p6.png)
+    *Fig: Performing final cleanup and renaming in Yosys*
 
 8. **Print synthesis statistics:**
     ```sh
     stat
     ```
     ![Synthesis statistics](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p7.png)
+    *Fig: Viewing synthesis statistics for BabySoC*
 
 9. **Write the synthesized netlist for GLS:**
     ```sh
     write_verilog -noattr ../output/synth/vsdbabysoc.synth.v
     ```
     ![Write netlist](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p8.png)
+    *Fig: Writing the synthesized netlist for gate-level simulation*
 
 ---
 
-### Steps to Perform GLS of BabySoC
+### Steps to Perform GLS of BabySoC 🧪
 
 1. **Simulate the netlist:**
     ```sh
@@ -95,19 +103,23 @@ Gate-level simulation is performed to verify the functionality of a design after
     gtkwave post_synth_sim.vcd
     ```
     ![GLS waveform](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p9.png)
+    *Fig: Viewing gate-level simulation waveform in GTKWave*
 
 - **Complete GLS waveform:**
     ![Complete waveform](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p10.png)
+    *Fig: Complete GLS waveform for BabySoC*
 
 - **Zoomed waveform (reset):**
     ![Zoomed reset](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p11.png)
+    *Fig: Zoomed-in waveform showing reset operation*
 
 - **Zoomed waveform (OUT transition):**
     ![Zoomed OUT](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p12.png)
+    *Fig: Zoomed-in waveform showing OUT signal transition*
 
 ---
 
-### Observations
+### Observations 👀
 
 - The `RV_TO_DAC[9:0]` waveform shows a pattern of increasing and decreasing values, representing the sum of first n integers and then in reverse order.
 - Before reset, the output of rvmyth is undefined; after reset, valid digital output is produced.
@@ -129,7 +141,7 @@ GLS == Functional output
 ---
 
 <details>
-<summary>STA Fundamentals</summary>
+<summary>STA Fundamentals ⏱️📐</summary>
 
 ## STA Fundamentals
 
@@ -173,12 +185,14 @@ GLS == Functional output
 - Hold time: Often zero if value is pre-stored
 
 ![Transistor-level timing](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d2p1.png)
+*Fig: Transistor-level timing diagram illustrating setup, hold, and clk-to-Q delays*
 
 **Jitter and Noise Margin:**
 - Eye diagram: Overlapping clock waveforms showing voltage droop/bounce
 - Jitter extraction: Noise region and reliable data window identified for STA calculations
 
 ![Eye diagram](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d2p2.png)
+*Fig: Eye diagram showing clock jitter and noise margin for STA*
 
 **OCV (On-Chip Variation):**
 - Etching differences: Affect gate width/length, drain current, and delay
@@ -199,11 +213,11 @@ Common clock path derates removed as pessimism is not warranted in shared paths.
 ---
 
 <details>
-<summary>STA of BabySoC</summary>
+<summary>STA of BabySoC 🧮🔍</summary>
 
 ## STA of BabySoC
 
-### Installing OpenSTA
+### Installing OpenSTA 🛠️
 
 1. **Install required packages:**
     ```sh
@@ -227,10 +241,11 @@ Common clock path derates removed as pessimism is not warranted in shared paths.
     sta
     ```
     ![OpenSTA launch](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d3p1.png)
+    *Fig: Launching OpenSTA for static timing analysis*
 
 ---
 
-### Post-Synthesis STA of BabySoC
+### Post-Synthesis STA of BabySoC 📊
 
 **Input scripts for OpenSTA:**  
 Execute from `./BabySoC/VSDBabySoC/src` directory:
@@ -259,21 +274,23 @@ report_checks -fields {nets cap slew input_pins fanout} -digits {4} -path_delay 
 
 ---
 
-### Setup and Hold Reports
+### Setup and Hold Reports 📑
 
 - **Setup Report:**
     ![Setup report](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d3p2.png)
+    *Fig: Setup timing report for BabySoC showing critical path and slack*
 
     - Example: Reg2reg setup timing path from reg `_10450_` to `_10015_`, passing with a slack of 1.060 ns (critical path for setup).
 
 - **Hold Report:**
     ![Hold report](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d3p3.png)
+    *Fig: Hold timing report for BabySoC showing critical path and slack*
 
     - Example: Reg2reg hold timing path from reg `_9493_` to `_10335_`, passing with a slack of 0.3096 ns (critical path for hold).
 
 ---
 
-### Visualizing Timing Reports
+### Visualizing Timing Reports 🖼️
 
 - **Pathview:**  
   Pathview is a tool to visualize timing reports from OpenSTA and Primetime.  
@@ -281,6 +298,9 @@ report_checks -fields {nets cap slew input_pins fanout} -digits {4} -path_delay 
 
 - **Timing Graphs:**
     ![Setup path graph](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d3p4.png)
+    *Fig: Visualized setup timing path using Pathview*
+
     ![Hold path graph](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d3p5.png)
+    *Fig: Visualized hold timing path using Pathview*
 
 </details>
