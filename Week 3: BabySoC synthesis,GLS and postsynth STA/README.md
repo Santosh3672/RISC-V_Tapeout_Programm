@@ -16,7 +16,7 @@ As per our previous weeks repo gate level simulation is performed to verify the 
 `` cd VSDBabySoC/src/
 	yosys ``
 
-Image W3d1p1
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d1p1.png)
 
 2. Read the verilog files of vsdbabysoc and all synthesised modules instantiated in it (rvmyth and clk_gate)
 
