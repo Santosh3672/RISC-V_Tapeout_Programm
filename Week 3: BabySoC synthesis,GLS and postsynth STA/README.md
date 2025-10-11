@@ -280,16 +280,28 @@ report_checks -fields {nets cap slew input_pins fanout} -digits {4} -path_delay 
     ![Setup report](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d3p2.png)
     *Fig: Setup timing report for BabySoC showing critical path and slack*
 
-    - Example: Reg2reg setup timing path from reg `_10450_` to `_10015_`, passing with a slack of 1.060 ns (critical path for setup).
+    - The setup report lists all timing paths checked for setup violations. Each path includes details such as startpoint, endpoint, cell types, net names, capacitance, slew, input pins, fanout, and calculated slack.
+    - For example, a reg2reg setup timing path from register `_10450_` to `_10015_` passes with a slack of 1.060 ns, indicating the critical path for setup meets timing requirements.
+    - The report is sorted by slack, so the most critical paths (lowest slack) appear at the top. Positive slack means the design meets setup constraints; negative slack would indicate a violation.
+    - The setup analysis considers maximum delays through the combinational logic and checks if data arrives before the required clock edge at the destination register.
 
 - **Hold Report:**
     ![Hold report](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%203%3A%20BabySoC%20synthesis%2CGLS%20and%20postsynth%20STA/Image%20W3/W3d3p3.png)
     *Fig: Hold timing report for BabySoC showing critical path and slack*
 
-    - Example: Reg2reg hold timing path from reg `_9493_` to `_10335_`, passing with a slack of 0.3096 ns (critical path for hold).
+    - The hold report lists all timing paths checked for hold violations, with similar details as the setup report: startpoint, endpoint, cell types, net names, capacitance, slew, input pins, fanout, and slack.
+    - For example, a reg2reg hold timing path from register `_9493_` to `_10335_` passes with a slack of 0.3096 ns, showing the critical path for hold is safe.
+    - Hold analysis checks minimum delays to ensure data is held stable for the required time after the clock edge. Positive slack means the design meets hold constraints; negative slack would indicate a violation.
+    - Both setup and hold reports are essential for verifying that the synthesized BabySoC design will operate reliably at the intended clock frequency.
+
+    - Reports are generated using:
+      ```sh
+      report_checks -fields {nets cap slew input_pins fanout} -digits {4} -path_delay max -sort_by_slack > setup_report.txt
+      report_checks -fields {nets cap slew input_pins fanout} -digits {4} -path_delay min -sort_by_slack > hold_report.txt
+      ```
+    - These text files can be further analyzed or visualized using tools like Pathview for graphical representation of timing paths.
 
 ---
-
 ### Visualizing Timing Reports 🖼️
 
 - **Pathview:**  
