@@ -544,3 +544,102 @@ Observations
 - Increasing Wp strengthens the pMOS, raising Voh and improving NMH initially.
 - After a point, noise margins change little: CMOS noise margin is robust to moderate Wp variation.
 - The table quantifies how Wp affects Voh, Vil, and the margins for the given Wn and channel lengths.
+
+</details>
+
+
+<details>
+<summary>Day 5: CMOS power supply and device variation robustness</summary>
+
+## Day 5: CMOS power supply and device variation robustness
+
+### Power supply variation:
+
+This experiment sweeps Vdd to observe how the inverter VTC, switching threshold (Vm), and small‑signal gain change with supply voltage.
+
+Spice deck used:
+
+```spice
+* Model / Netlist
+.param temp=27
+
+* Include sky130 models
+.lib "sky130_fd_pr/models/sky130.lib.spice" tt
+
+* Circuit
+XM1 out in vdd vdd sky130_fd_pr__pfet_01v8 w=1 l=0.15
+XM2 out in 0 0   sky130_fd_pr__nfet_01v8 w=0.36 l=0.15
+
+Cload out 0 50fF
+Vdd vdd 0 1.8V
+Vin in 0 1.8V
+
+* Control: sweep Vdd from 1.8V down to 1.2V in steps of -0.2V
+.control
+let powersupply = 1.8
+alter Vdd = {powersupply}
+let voltagesupplyvariation = 0
+dowhile voltagesupplyvariation < 6
+  dc Vin 0 1.8 0.01
+  let powersupply = powersupply - 0.2
+  alter Vdd = {powersupply}
+  let voltagesupplyvariation = voltagesupplyvariation + 1
+end
+plot dc1.out vs in dc2.out vs in dc3.out vs in dc4.out vs in dc5.out vs in dc6.out vs in \
+     in xlabel "Input voltage (V)" ylabel "Output voltage (V)" title "Inverter DC characteristics vs supply"
+.endc
+
+.end
+```
+
+Notes:
+- The control section runs multiple DC sweeps while decrementing Vdd by 0.2 V each iteration (1.8 V → 1.6 V → ... → 1.0 V).
+- The plotted overlays show how the VTC and Vm shift with supply voltage. The 45° line (Vin = Vout) is included to extract Vm.
+
+
+Notes:
+- The control section runs multiple DC sweeps while decrementing Vdd by 0.2 V each iteration (1.8 V → 1.6 V → ... → 1.0 V).
+- The plotted overlays show how the VTC and Vm shift with supply voltage. The 45° line (Vin = Vout) is included to extract Vm.
+
+
+Spice waveform:
+
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%204%3A%20Spice%20simulation%20for%20STA/Image%20W4/W4d5p1.png)
+
+To find the gain we dragged the corresponding plot with left click.  
+To extract the Vm the intersection of 45 degree tangent and plot is used.  
+
+Measured Vm and small‑signal gain for each supply:
+
+| Supply (V) | Switching threshold Vm (V) | Gain |
+|-----------:|---------------------------:|-----:|
+| 1.0        | 0.458                      | 11.4 |
+| 1.2        | 0.530                      | 11.25|
+| 1.4        | 0.700                      | 10.69|
+| 1.6        | 0.790                      | 10.39|
+| 1.8        | 0.8807                     | 9.64 |
+
+
+Observations:
+- Lower Vdd reduces Vm and increases the peak small‑signal gain (dVout/dVin) for the DC operating point shown.
+- Lower Vdd also has low power consumption.
+- Lower supply reduces dynamic drive strength: in transient operation the output may not fully reach Voh when Vdd is low, limiting switching margin and speed.
+
+
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%204%3A%20Spice%20simulation%20for%20STA/Image%20W4/W4d5p2.png)
+
+Example transient limitation:
+- At Vdd = 1.0 V the output cannot fully charge to the nominal Voh during switching, illustrating a practical limit to supply scaling for fast, full‑swing outputs.
+
+### Cmos Process / device variation:
+
+To observe robustness to device sizing variations, Wp was increased significantly (example: Wp = 7 µm). The VTC shift is small:
+
+
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%204%3A%20Spice%20simulation%20for%20STA/Image%20W4/W4d5p3.png)
+
+Observation:
+- Switching threshold is 0.99V, while for lower value of Wp it is in the range of 0.82 – 0.92V. 
+- The variation in Vm is not much showing robustness of PMOS for process variation.
+
+</details>
