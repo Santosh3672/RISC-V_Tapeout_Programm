@@ -404,6 +404,16 @@ Wp (um)	Wp/Lp	Wn/Ln	Wp/Lp : Wn/Lp	Switching threshold Vm(V)	Rise transition dela
 1.68	11.2	2.4	4.66	0.9038	179.8	288.6
 2.1	14	2.4	5.833	0.917	147.8	291.9
 
+|  			Values set in spice circuit 		 |         |         |                 |  			Values extracted from spice 			simulation 		 |                              |                              |
+|-------------------------------|---------|---------|-----------------|------------------------------------------|------------------------------|------------------------------|
+|  			Wp (um) 		                     |  			Wp/Lp 		 |  			Wn/Ln 		 |  			Wp/Lp : Wn/Lp 		 |  			Switching threshold Vm(V) 		              |  			Rise transition delay (ps) 		 |  			Fall transition delay (ps) 		 |
+|  			0.42 		                        |  			2.8 		   |  			2.4 		   |  			1.166 		         |  			0.817 		                                  |  			610 		                        |  			270 		                        |
+|  			0.84 		                        |  			5.6 		   |  			2.4 		   |  			2.333 		         |  			0.876 		                                  |  			330 		                        |  			280 		                        |
+|  			1.26 		                        |  			8.4 		   |  			2.4 		   |  			3.5 		           |  			0.881 		                                  |  			234 		                        |  			286 		                        |
+|  			1.68 		                        |  			11.2 		  |  			2.4 		   |  			4.66 		          |  			0.9038 		                                 |  			179.8 		                      |  			288.6 		                      |
+|  			2.1 		                         |  			14 		    |  			2.4 		   |  			5.833 		         |  			0.917 		                                  |  			147.8 		                      |  			291.9 		                      |
+
+
 Observation:
 * When Pmos and Nmos have equal WL ratio The switching threshold is lower than half of Vdd.
 * Rise transition is very high and fall transition delay is less when Wp/Lp is similar to that of Nmos.
