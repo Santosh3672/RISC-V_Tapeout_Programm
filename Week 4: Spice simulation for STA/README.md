@@ -597,11 +597,6 @@ Notes:
 - The plotted overlays show how the VTC and Vm shift with supply voltage. The 45° line (Vin = Vout) is included to extract Vm.
 
 
-Notes:
-- The control section runs multiple DC sweeps while decrementing Vdd by 0.2 V each iteration (1.8 V → 1.6 V → ... → 1.0 V).
-- The plotted overlays show how the VTC and Vm shift with supply voltage. The 45° line (Vin = Vout) is included to extract Vm.
-
-
 Spice waveform:
 
 ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%204%3A%20Spice%20simulation%20for%20STA/Image%20W4/W4d5p1.png)
@@ -609,7 +604,7 @@ Spice waveform:
 To find the gain we dragged the corresponding plot with left click.  
 To extract the Vm the intersection of 45 degree tangent and plot is used.  
 
-Measured Vm and small‑signal gain for each supply:
+**Measured Vm and small‑signal gain for each supply:**
 
 | Supply (V) | Switching threshold Vm (V) | Gain |
 |-----------:|---------------------------:|-----:|
@@ -620,7 +615,7 @@ Measured Vm and small‑signal gain for each supply:
 | 1.8        | 0.8807                     | 9.64 |
 
 
-Observations:
+**Observations:**
 - Lower Vdd reduces Vm and increases the peak small‑signal gain (dVout/dVin) for the DC operating point shown.
 - Lower Vdd also has low power consumption.
 - Lower supply reduces dynamic drive strength: in transient operation the output may not fully reach Voh when Vdd is low, limiting switching margin and speed.
@@ -638,7 +633,7 @@ To observe robustness to device sizing variations, Wp was increased significantl
 
 ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%204%3A%20Spice%20simulation%20for%20STA/Image%20W4/W4d5p3.png)
 
-Observation:
+**Observation:**
 - Switching threshold is 0.99V, while for lower value of Wp it is in the range of 0.82 – 0.92V. 
 - The variation in Vm is not much showing robustness of PMOS for process variation.
 
