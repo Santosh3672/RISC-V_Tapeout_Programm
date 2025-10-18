@@ -108,3 +108,155 @@ We have Id on the Y axis and Vds on the X axis; different traces correspond to d
 W/L ratio = 5/2 = 2.5
 
 </details>
+
+<details>
+<summary>Day 2: Simulation at lower technode and effect of Velocity saturation</summary>
+
+<details>
+<summary>Day 2: Simulation at lower technode and effect of Velocity saturation</summary>
+
+## Day 2: Simulation at lower technode, velocity saturation and VTC
+
+This section compares long- and short-channel MOSFET behavior (L = 2 µm vs L = 150 nm) to illustrate velocity saturation and its effect on Id–Vgs and Id–Vds characteristics.
+
+### Short‑channel example (L = 150 nm)
+
+Spice netlist used:
+```spice
+*Model Description
+.param temp=27
+
+
+*Including sky130 library files
+.lib "sky130_fd_pr/models/sky130.lib.spice" tt
+
+
+*Netlist Description
+
+
+
+XM1 Vdd n1 0 0 sky130_fd_pr__nfet_01v8 w=0.375 l=0.15
+
+R1 n1 in 55
+
+Vdd vdd 0 1.8V
+Vin in 0 1.8V
+
+*simulation commands
+
+.op
+.dc Vdd 0 1.8 0.1 Vin 0 1.8 0.2
+
+.control
+
+run
+display
+setplot dc1
+.endc
+
+.end
+```
+
+Spice waveform:
+
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%204%3A%20Spice%20simulation%20for%20STA/Image%20W4/W4d2p1.png)
+
+W/L ratio = 0.375/0.15
+
+Notes:
+- L reduced to 150 nm to study velocity saturation.
+- W changed from default 390 µm to 375 µm so W/L ≈ 2.5 (kept comparable to long-channel case).
+
+Observation:
+- For the short-channel device, saturation drain current shows an approximately linear dependence on Vgs (due to velocity saturation), unlike the quadratic dependence predicted for long-channel devices.
+
+---
+
+### Id vs Vgs — long vs short channel
+
+Long-channel (example, L = 2 µm) netlist:
+```spice
+*Model Description
+.param temp=27
+
+*Including sky130 library files
+.lib "sky130_fd_pr/models/sky130.lib.spice" tt
+
+*Netlist Description
+
+XM1 Vdd n1 0 0 sky130_fd_pr__nfet_01v8 w=2 l=5
+
+R1 n1 in 55
+
+Vdd vdd 0 1.8V
+Vin in 0 1.8V
+
+*simulation commands
+
+.op
+.dc Vin 0 1.8 0.1 Vdd 0 2.5 2.5
+
+.control
+
+run
+display
+setplot dc1
+.endc
+
+.end
+```
+
+Simulation waveform (long channel):
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%204%3A%20Spice%20simulation%20for%20STA/Image%20W4/W4d2p2.png)
+
+Observation:
+- Id varies roughly quadratically with Vgs for the long-channel device (as per square-law behavior).
+
+Short-channel Id vs Vgs netlist (repeat for comparison):
+```spice
+*Model Description
+.param temp=27
+
+
+*Including sky130 library files
+.lib "sky130_fd_pr/models/sky130.lib.spice" tt
+
+
+*Netlist Description
+
+
+
+XM1 Vdd n1 0 0 sky130_fd_pr__nfet_01v8 w=0.375 l=0.15
+
+R1 n1 in 55
+
+Vdd vdd 0 1.8V
+Vin in 0 1.8V
+
+*simulation commands
+
+.op
+.dc Vin 0 1.8 0.1 Vdd 0 2.5 2.5
+
+.control
+
+run
+display
+setplot dc1
+.endc
+
+.end
+```
+
+Simulation waveform (short channel):
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%204%3A%20Spice%20simulation%20for%20STA/Image%20W4/W4d2p3.png)
+
+Observation:
+- Id increases approximately linearly with Vgs for the short-channel device because carriers reach velocity saturation; the square‑law no longer holds.
+
+Definitions / notes:
+- Vdsat: technology-dependent saturation voltage where carriers begin to saturate in velocity.
+- Threshold voltage, mobility, and other parameters are taken from the sky130 model file included via the `.lib` directive.
+- Keeping comparable W/L between cases isolates the effect of channel length scaling.
+
+</details>
