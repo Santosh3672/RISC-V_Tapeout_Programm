@@ -266,12 +266,15 @@ Definitions / notes:
 
 ## Day 3: Cmos Voltage Transfer characteristic (VTC)
 
-Voltage transfer characteristics of aCMOS is plot of Vin vs Vout, it is done to analyse the input to output behavior of CMOS logic circuit.
-It is calculated by evaluating Load curve of Pmos and Nmos and overlapping them. 
 
-Spice deck to evaluate VTC:
+The VTC (Vin vs Vout) of a CMOS inverter shows switching behavior and the inverter switching threshold Vm. It is obtained by overlapping the NMOS pull‑down and PMOS load characteristics or by sweeping Vin and plotting out.
 
- ``*Model Description
+### DC VTC (DC sweep)
+
+Spice deck to evaluate VTC (DC sweep):
+
+ ````
+ *Model Description
 .param temp=27
 
 
@@ -303,23 +306,28 @@ setplot dc1
 display
 .endc
 
-.end``
+.end
+````
 
-W/L ratio of pmos is 5.6 is greated than W/L of nmos of 1.8 because mobility of nmos is higher than that of pmos.
-
-To plot VTC use command `plot out vs in`on ngspice.
+Notes:
+- The pMOS W/L is larger than nMOS W/L (Wp/Lp = 5.6 vs Wn/Ln = 1.8) to compensate for lower pMOS mobility.
+- In ngspice use `plot out vs in` to view the VTC.
 
 ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%204%3A%20Spice%20simulation%20for%20STA/Image%20W4/W4d3p1.png)
 
-To find switching threshold we need to find at which value Vin and Vout are equal. For that we zoomed VTC curve by dragging with right click.
+- To find the switching threshold Vm, locate the point where Vin = Vout (zoom if necessary).
 
 ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%204%3A%20Spice%20simulation%20for%20STA/Image%20W4/W4d3p2.png)
  
-Transition model:
-It is a plot of output response of inverter when input is switching dynamically:
-spice deck:
 
-``*Model Description
+
+### Dynamic response (transition)
+To simulate the inverter switching dynamically, use a pulse input and transient simulation:
+
+
+
+```spice
+*Model Description
 .param temp=27
 
 
@@ -347,26 +355,32 @@ Vin in 0 PULSE(0V 1.8V 0 0.1ns 0.1ns 2ns 4ns)
 run
 .endc
 
-.end``
+.end
+```
 
 
-PULSE function is used to simulate: Rising and falling of Vin between 0 and 1.8V at certain time interval.
 
-To plot the curve use `plot out vs time in`
+- The PULSE source toggles Vin between 0 and 1.8 V with specified rise/fall times and periods.
+- Plot `out` and `in` vs. `time` to measure delays.
 
 ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%204%3A%20Spice%20simulation%20for%20STA/Image%20W4/W4d3p3.png)
 
-To find rising transition we find time difference when Vin and Vout are at Vdd/2 or 0.9V for rising edge of Vout. Similarly falling delay is calculated at falling edge of Vout.
+- Rising delay: time difference when both Vin and Vout cross Vdd/2 (0.9 V) on the rising edge.
+
 
 ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%204%3A%20Spice%20simulation%20for%20STA/Image%20W4/W4d3p4.png)
 
 From image above rise delay = (2.48-2.15) ns = 0.33ns = 330ps
 
+- Falling delay: analogous measurement on the falling edge.
+
 ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%204%3A%20Spice%20simulation%20for%20STA/Image%20W4/W4d3p5.png)
 
 From image above fall delay is 4.33-4.05 ns = 0.28ns = 280ps.
-Simulation of Cmos with equal WL ratio of Pmos and Nmos:
-Wn = 0.36, Ln = 0.15, Wp = 0.42, Lp = 0.15
+
+**Simulation of Cmos with equal WL ratio of Pmos and Nmos:**  
+Wn = 0.36um, Ln = 0.15um, Wp = 0.42um, Lp = 0.15um
+
 Wp of 0.36 was not available so we choose the closest one:
 VTC plot:
 
@@ -393,39 +407,31 @@ Fall transition :
 
 Extracted fall transition delay = 4.32 – 4.05 ns = 270ps.
 
-Similarly we tried this experiment for various values of Wp keeping Wn = 0.36, Ln = Lp = 0.15um constant.
-With this ratio of Wp/Lp : Wn/Lp is varied and results are tabulated below:
 
-Values set in spice circuit	Values extracted from spice simulation
-Wp (um)	Wp/Lp	Wn/Ln	Wp/Lp : Wn/Lp	Switching threshold Vm(V)	Rise transition delay (ps)	Fall transition delay (ps)
-0.42	2.8	2.4	1.166	0.817	610	270
-0.84	5.6	2.4	2.333	0.876	330	280
-1.26	8.4	2.4	3.5	0.881	234	286
-1.68	11.2	2.4	4.66	0.9038	179.8	288.6
-2.1	14	2.4	5.833	0.917	147.8	291.9
+### Experiments: varying Wp (keeping Wn = 0.36, Ln = Lp = 0.15 µm)
+We tested several Wp values to study VTC and transition delays. Wn = 0.36 µm, Ln = Lp = 0.15 µm.
 
-|  			Values set in spice circuit 		 |         |         |                 |  			Values extracted from spice 			simulation 		 |                              |                              |
-|-------------------------------|---------|---------|-----------------|------------------------------------------|------------------------------|------------------------------|
-|  			Wp (um) 		                     |  			Wp/Lp 		 |  			Wn/Ln 		 |  			Wp/Lp : Wn/Lp 		 |  			Switching threshold Vm(V) 		              |  			Rise transition delay (ps) 		 |  			Fall transition delay (ps) 		 |
-|  			0.42 		                        |  			2.8 		   |  			2.4 		   |  			1.166 		         |  			0.817 		                                  |  			610 		                        |  			270 		                        |
-|  			0.84 		                        |  			5.6 		   |  			2.4 		   |  			2.333 		         |  			0.876 		                                  |  			330 		                        |  			280 		                        |
-|  			1.26 		                        |  			8.4 		   |  			2.4 		   |  			3.5 		           |  			0.881 		                                  |  			234 		                        |  			286 		                        |
-|  			1.68 		                        |  			11.2 		  |  			2.4 		   |  			4.66 		          |  			0.9038 		                                 |  			179.8 		                      |  			288.6 		                      |
-|  			2.1 		                         |  			14 		    |  			2.4 		   |  			5.833 		         |  			0.917 		                                  |  			147.8 		                      |  			291.9 		                      |
+| Wp (µm) | Wp/Lp | Wn/Ln | Wp/Lp : Wn/Ln | Switching threshold Vm (V) | Rise delay (ps) | Fall delay (ps) |
+|---------:|------:|------:|---------------:|---------------------------:|----------------:|----------------:|
+| 0.42     | 2.8   | 2.4   | 1.166          | 0.817                     | 610             | 270             |
+| 0.84     | 5.6   | 2.4   | 2.333          | 0.876                     | 330             | 280             |
+| 1.26     | 8.4   | 2.4   | 3.5            | 0.881                     | 234             | 286             |
+| 1.68     | 11.2  | 2.4   | 4.66           | 0.9038                    | 179.8           | 288.6           |
+| 2.10     | 14.0  | 2.4   | 5.833          | 0.917                     | 147.8           | 291.9           |
 
 
-Observation:
-* When Pmos and Nmos have equal WL ratio The switching threshold is lower than half of Vdd.
-* Rise transition is very high and fall transition delay is less when Wp/Lp is similar to that of Nmos.
-* This is due to high mobility of Nmos.
-* When Pmos WL ratio is increased the Rise transition is reduced significantly at first then starts to saturates. At the same time Fall trastition increases slowly.
-* At when the Pmos WL ratio is in the range of  3.5-4.66 time that of Mnos the switching threshold value is 0.9 (Vdd/2)
-* When Pmos WL ratio is in range of 2.333-3.5 the rise and fall transition are equal.
+Observations:
+- When pMOS and nMOS have equal W/L ratio, the switching threshold is below Vdd/2 (due to higher nMOS mobility).
+- With pMOS W/L similar to nMOS W/L, rise delay is large and fall delay is small.
+- Increasing pMOS W/L reduces rise delay significantly at first, then it starts to saturate; fall delay increases slowly.
+- For Wp/Lp in the range ~3.5–4.66 × Wn/Ln the switching threshold approaches ≈ 0.9 V (Vdd/2).
+- In the range ≈2.33–3.5 × Wn/Ln the rise and fall delays become approximately equal.
 
-Key takeaway for STA:
-For Clock tree synthesis where we want equal transition of rise and fall we can use the above table and use Wp in the range of 0.84 to 1.26.
-For critical paths where slack is negative we can increase Wp to reduce the rise transition time and meet timing.
-For case where timing path is not critical we can use Wp value 0.42 to have low area of Pmos.
+Key takeaways for STA:
+- For clock-tree synthesis where balanced rise/fall is desired, use Wp in the range 0.84–1.26 µm (for the given process and Wn).
+- For timing-critical paths with negative slack, increase Wp to speed up rising transitions.
+- For non-critical paths, choose smaller Wp (e.g., 0.42 µm) to save area.
+
 
 
 </details>
