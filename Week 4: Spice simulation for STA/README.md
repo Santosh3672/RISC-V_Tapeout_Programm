@@ -381,8 +381,8 @@ From image above fall delay is 4.33-4.05 ns = 0.28ns = 280ps.
 **Simulation of Cmos with equal WL ratio of Pmos and Nmos:**  
 Wn = 0.36um, Ln = 0.15um, Wp = 0.42um, Lp = 0.15um
 
-Wp of 0.36 was not available so we choose the closest one:
-VTC plot:
+Wp of 0.36 was not available so we choose the closest one:  
+**VTC plot:**
 
 ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%204%3A%20Spice%20simulation%20for%20STA/Image%20W4/W4d3p6.png)
 
@@ -432,6 +432,115 @@ Key takeaways for STA:
 - For timing-critical paths with negative slack, increase Wp to speed up rising transitions.
 - For non-critical paths, choose smaller Wp (e.g., 0.42 µm) to save area.
 
-
-
 </details>
+
+
+<details>
+<summary>Day 4: Noise Margin</summary>
+
+## Day 4: Noise Margin
+
+
+Noise margins are extracted from the CMOS VTC by finding the two points where the slope of the Vout vs Vin curve is −1. These give the input thresholds that the next stage must recognize as logic 0 and logic 1.
+
+Definitions
+- Vol (Output Low): any output between 0 and Vol is considered logic 0.
+- Voh (Output High): any output between Voh and Vdd is considered logic 1.
+- Vil (Input Low): any input between 0 and Vil is considered logic 0.
+- Vih (Input High): any input between Vih and Vdd is considered logic 1.
+
+
+
+For correct cascading of stages we require:
+Vdd > Voh > Vih > Vil > Vol > 0
+
+Noise margin formulas:
+- NMH = Voh − Vih
+- NML = Vil − Vol
+
+Any voltage between Voh and Vih: Considered as logic 1
+Any voltage between Vil and Vol: Considered as logic 0
+
+
+Noise margin Extraction procedure
+1. Generate the inverter VTC (DC sweep of Vin) in ngspice and plot out vs in.
+2. Zoom into the regions near the high and low transitions.
+3. Find the two points where dVout/dVin = −1. Read out Voh, Vih (high side) and Vil, Vol (low side).
+4. Compute NMH and NML using the formulas above.
+
+Spice simulation deck used:
+
+````spice
+*Model Description
+.param temp=27
+
+
+*Including sky130 library files
+.lib "sky130_fd_pr/models/sky130.lib.spice" tt
+
+
+*Netlist Description
+
+
+XM1 out in vdd vdd sky130_fd_pr__pfet_01v8 w=1 l=0.15
+XM2 out in 0 0 sky130_fd_pr__nfet_01v8 w=0.36 l=0.15
+
+
+Cload out 0 50fF
+
+Vdd vdd 0 1.8V
+Vin in 0 1.8V
+
+*simulation commands
+
+.op
+
+.dc Vin 0 1.8 0.01
+
+.control
+run
+setplot dc1
+display
+.endc
+
+.end
+````
+
+
+Plots are seen with `plot out`
+
+To find region of -1 slope we zoomed the region of Voh and extracted slope by dragging with left click as shown below.
+
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%204%3A%20Spice%20simulation%20for%20STA/Image%20W4/W4d4p1.png)
+
+Similarly the same was observed for Vol as shown in image below:
+
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%204%3A%20Spice%20simulation%20for%20STA/Image%20W4/W4d4p2.png)
+
+From the image the extracted values are:  
+- Voh = 1.7404 V
+- Vol = 0.0812 V
+- Vih = 1.0015 V
+- Vil = 0.7470 V
+
+Computed noise margins:
+- NMH = Voh − Vih = 0.7389 V
+- NML = Vil − Vol = 0.666 V
+
+In this case Wn/Ln  = 2.4 and Wp/Lp = 6.66, Wp/Lp: Wn/Ln = 2.775
+The experiment is repeated for different Wp to vary ratio of  Wp/Lp: Wn/Ln and results are tabulated below.
+
+Table of measured values:
+
+| Wp (µm) | Wp/Lp | Wn/Ln | Ratio (Wp/Lp : Wn/Ln) | Voh (V) | Vih (V) | Vil (V) | Vol (V) | NMH (V) | NML (V) |
+|--------:|------:|------:|----------------------:|--------:|--------:|--------:|--------:|--------:|--------:|
+| 0.42    | 2.8   | 2.4   | 1.166                 | 1.749   | 0.900   | 0.692   | 0.059   | 0.849   | 0.633   |
+| 0.84    | 5.6   | 2.4   | 2.333                 | 1.7395  | 1.000   | 0.738   | 0.0832  | 0.7395  | 0.655   |
+| 1.00    | 6.66  | 2.4   | 2.775                 | 1.7404  | 1.0015  | 0.747   | 0.0812  | 0.7389  | 0.666   |
+| 1.26    | 8.4   | 2.4   | 3.5                   | 1.7396  | 0.9958  | 0.761   | 0.0672  | 0.7438  | 0.694   |
+| 1.68    | 11.2  | 2.4   | 4.66                  | 1.7425  | 1.0308  | 0.7743  | 0.0776  | 0.7124  | 0.6967  |
+
+Observations
+- Increasing Wp strengthens the pMOS, raising Voh and improving NMH initially.
+- After a point, noise margins change little: CMOS noise margin is robust to moderate Wp variation.
+- The table quantifies how Wp affects Voh, Vil, and the margins for the given Wn and channel lengths.
