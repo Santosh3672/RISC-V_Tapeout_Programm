@@ -109,8 +109,6 @@ W/L ratio = 5/2 = 2.5
 
 </details>
 
-<details>
-<summary>Day 2: Simulation at lower technode and effect of Velocity saturation</summary>
 
 <details>
 <summary>Day 2: Simulation at lower technode and effect of Velocity saturation</summary>
