@@ -26,7 +26,7 @@ A mosfet operates on 3 modes:
         ◦ Requires higher VGS to form inversion channel; increases Vt.
         ◦ Raises threshold voltage, pushing transistor toward cutoff mode.
 
-Image W4d1p1
+    ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%204%3A%20Spice%20simulation%20for%20STA/Image%20W4/W4d1p1.png)
 
 
 
@@ -71,7 +71,8 @@ Steps in writing a SPICE netlist:
 eg `M1 vdd n1 0 0 nmos W=1.8u L=1.2u`
 M1 = Mosfet, nodes where terminal of M1 are connected to, name of device nmos, parameter of nmos
 
-Image W4d1p2
+    ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%204%3A%20Spice%20simulation%20for%20STA/Image%20W4/W4d1p2.png)
+
 
 * Get models of devices: The model file contains MODEL definition of all device nmos for our example and store its parameter like VTH0, U0, etc.
 This needs to be included in the spice netlist
@@ -132,12 +133,16 @@ Components of spice netlist:
 Steps to perform SPICE simulation using ngspice:
 1. Open ngspice with spice circuit:
 	``ngspice ./day1_nfet_idvds_L2_W5.spice``
-Image W4d1p3
+
+    ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%204%3A%20Spice%20simulation%20for%20STA/Image%20W4/W4d1p3.png)
+
 
 2. Plot graph using
 	``plot -vdd#branch``
 negative sign is used because the convention in spice simulation is negative. 
-Image W4d1p4
+
+    ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week%204%3A%20Spice%20simulation%20for%20STA/Image%20W4/W4d1p4.png)
+
 
 We have Id on Y axis and Vds on X axis, different plots are for different Vgs.
 
