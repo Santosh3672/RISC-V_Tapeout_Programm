@@ -102,19 +102,29 @@ Yosys installation
 ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p4.png)
 Openroad installation
 
-Troubleshooting Tips
-If missing packages are reported:
+### Troubleshooting Guide
 
-Review build_openroad.log
-Install missing dependencies
-Rebuild OpenROAD
-Repeat until all dependencies are satisfied
-Common Issues:
+#### When Missing Packages Are Reported:
 
-Missing system packages
-Compiler version mismatches
-Environment variable conflicts
-Note: Installation may require multiple iterations to resolve all dependencies. Using online resources like Perplexity AI can help quickly resolve package-related issues.
+1. **Log Review**
+   - Check `build_openroad.log` for specific error messages
+   - Look for dependency requirements and version conflicts
+
+2. **Installing Dependencies**
+   - Install missing packages using system package manager
+   - Follow error messages to identify required packages
+   - Verify package versions match requirements
+
+3. **Rebuild Process**
+   ```bash
+   ./build_openroad.sh --clean  # Clean previous build
+   ./build_openroad.sh --local  # Rebuild with local settings```
+
+4. **Iterative Resolution**
+    - Address each missing dependency
+    - Rebuild after installing packages
+    - Continue until build completes successfully
+
 
 </details>
 
