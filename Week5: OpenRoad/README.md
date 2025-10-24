@@ -9,14 +9,42 @@ This repository documents Week 5 of the RISC-V Tapeout Program. It covers an int
 
 ## Introduction to Openroad
 
-OpenROAD is an open-source project focused on simplifying and democratizing VLSI digital design. It provides an autonomous, 24-hour RTL-to-GDSII flow that requires no manual intervention. The project plays a vital role in the open-source hardware ecosystem by enabling startups, academic researchers, and independent engineers to access advanced IC design capabilities without relying on costly proprietary tools or specialized expertise.
 
-Key Features:
-• Fully automated digital design flow from RTL to GDSII  
-• Open-source, permissively licensed EDA suite supporting modern design methodologies  
-• Integrated machine learning tools for optimization (e.g., AutoTuner)  
-• Cloud and distributed computing support for faster design turnaround (COPILOT)  
-• Strong community-driven development with widespread adoption in global tapeouts
+OpenROAD is an innovative open-source project that aims to revolutionize VLSI digital design by making it more accessible and automated. Its primary goal is to provide a complete RTL-to-GDSII flow that can run autonomously within 24 hours without requiring manual intervention.
+
+### Key Features
+
+1. **Automated Design Flow**
+   - Complete RTL to GDSII automation
+   - No manual intervention required
+   - 24-hour turnaround target
+
+2. **Open Source Benefits**
+   - Permissively licensed EDA suite
+   - Supports modern design methodologies
+   - Enables broader access to IC design capabilities
+
+3. **Advanced Technologies**
+   - Integrated machine learning optimization via AutoTuner
+   - Cloud computing support through COPILOT
+   - Distributed computing capabilities
+
+4. **Community-Driven Development**
+   - Active global community
+   - Proven track record in successful tapeouts
+   - Continuous improvements and updates
+
+### Target Users
+- Startups developing custom silicon
+- Academic researchers
+- Independent engineers
+- Companies seeking open-source alternatives
+
+This tool democratizes IC design by removing barriers like:
+- High costs of proprietary tools
+- Need for specialized expertise
+- Limited access to advanced design capabilities
+
 
 
 </details>
@@ -26,38 +54,67 @@ Key Features:
 <summary>Installation of Openroad</summary>
 
 ## Installation of Openroad
-Steps to install Openroad:
 
-1. Clone the Openroad repository:
-```git clone --recursive https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts
-cd OpenROAD-flow-scripts```
-2. Run the setup script:
-``` sudo ./setup.sh
-```
+This section details the step-by-step process to install OpenROAD and its dependencies.
+
+### Prerequisites
+- Linux-based system
+- Git
+- C++ compiler
+- Required packages (will be installed via setup script)
+
+### Installation Steps
+
+1. **Clone the Repository**
+   ```bash
+   git clone --recursive https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts
+   cd OpenROAD-flow-scripts```
+
+
+2. **Run setup script**
+    ```bash
+    sudo ./setup.sh```
 
 ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p1.png)
 
-3. Build the OpenRoad with local setting:
-```
-./build_openroad.sh --local
-```
-A log file is dumped `build_openroad.log`
-Check it for any error and fix any missing packages like cudd.
+3. **Build OpenRoad**
+    ```bash
+    ./build_openroad.sh --local```
+
+  - Builds OpenROAD with local settings
+  - Creates build_openroad.log for debugging
+  - Check log for any missing dependencies (e.g., cudd package)
+
 
 ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p2.png)
 
 
-4. Verify Installation
-``source ./env.sh
-yosys -help  
-openroad -help``
+4. **Verify Installation**
+    ```bash
+    source ./env.sh
+    yosys -help  
+    openroad -help``
+
 ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p3.png)
 
 Yosys installation
+
 ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p4.png)
 Openroad installation
 
-During installation of Openroad I faced challenges in missing packages. To resolve them I had to fix those packages and reinstall openroad, after 3 such iterations all issues were resolved. To resolve the issues faster I used perplexity AI and applied the solutions. 
+Troubleshooting Tips
+If missing packages are reported:
+
+Review build_openroad.log
+Install missing dependencies
+Rebuild OpenROAD
+Repeat until all dependencies are satisfied
+Common Issues:
+
+Missing system packages
+Compiler version mismatches
+Environment variable conflicts
+Note: Installation may require multiple iterations to resolve all dependencies. Using online resources like Perplexity AI can help quickly resolve package-related issues.
 
 </details>
 
