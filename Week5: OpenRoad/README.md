@@ -9,15 +9,15 @@ This repository documents Week 5 of the RISC-V Tapeout Program. It covers an int
 
 ## Introduction to Openroad
 
-OpenROAD is an open-source project aimed at simplifying and democratizing VLSI digital design by providing an autonomous, 24-hour, RTL-to-GDSII flow with no human required in the loop. It plays a critical role in open-source VLSI by making advanced IC design accessible to startups, academic researchers, and independent engineers, reducing dependence on expensive proprietary tools and specialized expertise.
-​
-Key features include:
-    • Fully automated digital design flow from RTL to GDSII.
-    • Open-source, permissively licensed EDA tools supporting the latest design methodologies.
-    • Integrated machine learning for design optimization (e.g., AutoTuner).
-    • Cloud and distributed computing support for faster design turnaround (COPILOT).
-    • Community-driven development with rapid adoption in diverse global chip tapeouts.
-​
+OpenROAD is an open-source project focused on simplifying and democratizing VLSI digital design. It provides an autonomous, 24-hour RTL-to-GDSII flow that requires no manual intervention. The project plays a vital role in the open-source hardware ecosystem by enabling startups, academic researchers, and independent engineers to access advanced IC design capabilities without relying on costly proprietary tools or specialized expertise.
+
+Key Features:
+• Fully automated digital design flow from RTL to GDSII  
+• Open-source, permissively licensed EDA suite supporting modern design methodologies  
+• Integrated machine learning tools for optimization (e.g., AutoTuner)  
+• Cloud and distributed computing support for faster design turnaround (COPILOT)  
+• Strong community-driven development with widespread adoption in global tapeouts
+
 
 </details>
 
