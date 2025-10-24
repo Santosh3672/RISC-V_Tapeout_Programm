@@ -129,9 +129,41 @@ Openroad installation
 </details>
 
 <details>
-<summary>Directory Structure</summary>
+<summary>Directory Structure of OpenROAD</summary>
 
-## Directory Structure
+## Directory Structure of OpenROAD
+
+### OpenROAD-flow-scripts/
+
+OpenROAD-flow-scripts/
+├── Tools/ # Tools for OpenROAD flow
+│ ├── Autotuner # Machine learning optimization
+│ ├── OpenROAD # Core OpenROAD tool
+│ └── yosys # Synthesis tool
+│
+├── Flow/ # RTL to GDS flow structure
+├── docs/ # OpenROAD documentation
+├── Docker/ # Docker image configurations
+├── Jenkins/ # CI/CD pipeline setup
+├── etc/ # Dependency installer scripts
+└── setup_env.sh # Environment setup script
+
+### Flow Directory Structure
+
+Flow/
+├── design/ # Design files for different nodes
+├── platform/ # Technology node specific data
+│ ├── libs/ # Library files
+│ ├── lef/ # Layout files
+│ ├── gds/ # Physical layout data
+│ └── drc/ # Design rule check files
+│
+├── scripts/ # RTL to GDS flow scripts
+├── test/ # Test configurations
+├── tutorial/ # Tutorial materials
+├── util/ # Utility scripts
+└── Makefile # Build automation file
+
 
 OpenRoad directory structure:
 OpenROAD-flow-scripts:
