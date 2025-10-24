@@ -135,55 +135,36 @@ Openroad installation
 
 ### OpenROAD-flow-scripts/
 
-OpenROAD-flow-scripts/
-├── Tools/ # Tools for OpenROAD flow
-│ ├── Autotuner # Machine learning optimization
-│ ├── OpenROAD # Core OpenROAD tool
-│ └── yosys # Synthesis tool
-│
-├── Flow/ # RTL to GDS flow structure
-├── docs/ # OpenROAD documentation
-├── Docker/ # Docker image configurations
-├── Jenkins/ # CI/CD pipeline setup
-├── etc/ # Dependency installer scripts
-└── setup_env.sh # Environment setup script
+OpenROAD-flow-scripts/  
+├── Tools/ # Tools used in the OpenROAD flow  
+│ ├── Autotuner # Machine learning optimization module  
+│ ├── OpenROAD # Core OpenROAD tool  
+│ └── yosys # Logic synthesis tool  
+│  
+├── Flow/ # RTL to GDSII flow structure  
+├── docs/ # OpenROAD documentation  
+├── Docker/ # Docker image configurations  
+├── Jenkins/ # CI/CD pipeline setup  
+├── etc/ # Dependency installer scripts  
+└── setup_env.sh # Environment setup script  
 
 ### Flow Directory Structure
 
-Flow/
-├── design/ # Design files for different nodes
-├── platform/ # Technology node specific data
-│ ├── libs/ # Library files
-│ ├── lef/ # Layout files
-│ ├── gds/ # Physical layout data
-│ └── drc/ # Design rule check files
-│
-├── scripts/ # RTL to GDS flow scripts
-├── test/ # Test configurations
-├── tutorial/ # Tutorial materials
-├── util/ # Utility scripts
-└── Makefile # Build automation file
+Flow/  
+├── design/ # Design files for different nodes  
+├── platform/ # Technology node specific data  
+│ ├── libs/ # Library files  
+│ ├── lef/ # Layout files  
+│ ├── gds/ # Physical layout data  
+│ └── drc/ # Design rule check files  
+│  
+├── scripts/ # RTL to GDS flow scripts  
+├── test/ # Test configurations  
+├── tutorial/ # Tutorial materials  
+├── util/ # Utility scripts  
+└── Makefile # Build automation file  
 
 
-OpenRoad directory structure:
-OpenROAD-flow-scripts:
-	-Tools: Contains all the tools for Openroad flow: Autotuner, Openroad, yosys, etc
-	- Flow: File structure to run RTL to GDS flow for designs
-	- docs: Documentation for Openroad and the flow
-	- Docker: Include openroad version in docker image
-	- Jenkins: To manage continuous integration pipelines for rapid, automated build and test verification
-	- etc: Has dependency installer script
-	- setup_env.sh: Source file to setup Openroad
-
-
-Flow directory structure:
-    - design: contains design information for different technology nodes
-    - platform: contains data for different technodes like, libs,lef,gds,drc rules
-    - scripts: scripts for RTL to GDS flow
-    - test: 
-    - tutorial
-    - util
-    - Makefile: Make build automation file for Openroad
 
 </details>
 
@@ -192,52 +173,82 @@ Flow directory structure:
 
 ## Floorplan and Placement with Openroad
 
-nside flow/Makefile file we can see that the design variable is set to `DESIGN_CONFIG ?= ./designs/nangate45/gcd/config.mk`
-It is a GCD design on nangate45 technode an opensource PDK on 45nm.
+### Initial Setup
+The design configuration is specified in `flow/Makefile`:
+- Design variable: `DESIGN_CONFIG ?= ./designs/nangate45/gcd/config.mk`
+- Uses GCD design on nangate45 (45nm open-source PDK)
 
-In the config.mk file we can see following information present:
-1. Design input: Design name, Verilog files(RTL), and constraints file(.sdc).
-2. Platform name:
-3. Inputs for synthesis: ABC_AREA
-4. Inputs for Floorplan and placement: Core utilization, PDN tcl file.
+### Configuration Details (config.mk)
+1. **Design Inputs**
+   - Design name
+   - Verilog files (RTL)
+   - Constraints file (.sdc)
+2. **Platform Configuration**
+   - Platform name: nangate45
+3. **Synthesis Parameters**
+   - ABC_AREA settings
+4. **Floorplan/Placement Inputs**
+   - Core utilization
+   - PDN TCL file
 
 
 ### Running Logic Synthesis for GSD design on nangate45:
-Use following command to run synthesis in the flow directory:
-`make synth`
+Use following command to run synthesis in the flow directory:  
+`make synth`  
 
 ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p5.png)
 
-It will create following directories:
-1. Log
-2. Reports
-3. Results: for subsequent steps
+**Generated Directories:**
+- Log/: Contains synthesis logs  
+- Reports/: Synthesis reports  
+- Results/: Output files for next steps  
+
 
 ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p6.png)
 
-Synth stat for gcd 
+Synth stattistics for gcd design  
 
-### Executing Floorplan on synth netlist:
-Use command `make floorplan`
+### Executing Floorplan on synth netlist:  
+
+Use command `make floorplan`  
 
 ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p7.png)
 ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p8.png)
 
 In log file following subtasks logs are generated:
-1. 2_1_floorplan: Initializes design, reads libs,lef, checks setup and reapaits tie_lo and tie_hi fanout
-2. 2_2_floorplan_macro:  Macro placement
-3. 2_3 floorplan_tapcell: Adds tapcell
-4. 2_4 floorplan_pdn: Adds PDN grid.
+
+1. **2_1_floorplan**
+   - Initializes design
+   - Reads libs and LEF files
+   - Checks setup
+   - Repairs tie_lo and tie_hi fanout
+
+2. **2_2_floorplan_macro**
+   - Handles macro placement
+   - Places large macro blocks
+
+3. **2_3_floorplan_tapcell** 
+   - Adds tapcells
+   - Manages substrate/well connections
+
+4. **2_4_floorplan_pdn**
+   - Adds PDN grid
+   - Creates power distribution network
+
 These are the subtasks of floorplan.
 
-
-In the results directory Openroad Database (odb) are created for each intermediate steps with same name as that of log files. Along with that sdc and floorplan.tcl file and final odb 2_floorplan.odb is also generated. 
+In the results directory, OpenROAD Database (ODB) files are created for each intermediate step with the same name as the log files. Additionally generated:
+- SDC files
+- floorplan.tcl
+- Final ODB (2_floorplan.odb)
 
 ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p9.png)
 
-To view floorplan view with openroad use command 
-```cd results/nangate45/gcd/base/
-openroad -gui -db  2_floorplan.odb```
+To view floorplan in OpenROAD GUI:
+```bash
+cd results/nangate45/gcd/base/
+openroad -gui -db 2_floorplan.odb
+```
 
 ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p10.png)
 
@@ -248,23 +259,46 @@ Use the command `make place` to execute placement on the floorplan DB.
 ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p11.png)
 ![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p12.png)
 
-Placement has following subtasks under it:
-1. 3_1_place_gp_skip_io: If Iopins are unplaced it will do global placement prior to IO placement.
-![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p13.png)
+### Placement Subtasks and Outputs
 
-2. 3_2_place_iop: Perform IO placement if it is not done
-![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p14.png)
+1. **3_1_place_gp_skip_io (Global Placement - Skip IO)**
+   - Performs initial global placement when IO pins are unplaced
+   - Optimizes cell positions before IO pin assignment
+   - Generates initial placement database
+   ![Global Placement Skip IO](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p13.png)
 
-3. 3_3_place_gp: Global placement with Iopins placed.
-![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p15.png)
+2. **3_2_place_iop (IO Placement)**
+   - Handles IO pin placement if not already completed
+   - Places pins around chip periphery
+   - Creates database with placed IO pins
+   ![IO Placement](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p14.png)
 
-4. 3_4_place_resized: Performs resizing of cells and buffering of nets
-![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p16.png)
+3. **3_3_place_gp (Global Placement with IO)**
+   - Executes complete global placement including placed IO pins
+   - Optimizes overall cell locations
+   - Produces globally placed design database
+   ![Global Placement](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p15.png)
 
-5. 3_5_place_dp: Detail placement stage
-![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p17.png)
+4. **3_4_place_resized (Cell Resizing)**
+   - Optimizes cell sizes
+   - Adds buffers to critical nets
+   - Creates resized and buffered design database
+   ![Cell Resizing](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p16.png)
 
-Conclusion:
+5. **3_5_place_dp (Detailed Placement)**
+   - Performs final detailed placement
+   - Legalizes all cell positions
+   - Ensures design rule compliance
+   - Generates final placed design database
+   ![Detailed Placement](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p17.png)
+
+To view the final placement results:
+```bash
+cd results/nangate45/gcd/base/
+openroad -gui -db 3_place.odb
+```
+
+## Conclusion:
 In this repository we were able to install openroad-flor_scripts in our system and perform Floorplan and Placement of GCD design at nanogate45 platform.
 
 
