@@ -34,7 +34,9 @@ cd OpenROAD-flow-scripts```
 2. Run the setup script:
 ``` sudo ./setup.sh
 ```
-Image W5p1
+
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p1.png)
+
 3. Build the OpenRoad with local setting:
 ```
 ./build_openroad.sh --local
@@ -42,16 +44,17 @@ Image W5p1
 A log file is dumped `build_openroad.log`
 Check it for any error and fix any missing packages like cudd.
 
-Image W5d2
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p2.png)
 
 
 4. Verify Installation
 ``source ./env.sh
 yosys -help  
 openroad -help``
-Image W5p3
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p3.png)
+
 Yosys installation
-Image W5p4
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p4.png)
 Openroad installation
 
 During installation of Openroad I faced challenges in missing packages. To resolve them I had to fix those packages and reinstall openroad, after 3 such iterations all issues were resolved. To resolve the issues faster I used perplexity AI and applied the solutions. 
@@ -104,21 +107,22 @@ In the config.mk file we can see following information present:
 Use following command to run synthesis in the flow directory:
 `make synth`
 
-Image W5p5
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p5.png)
 
 It will create following directories:
 1. Log
 2. Reports
 3. Results: for subsequent steps
 
-Image W5p6
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p6.png)
+
 Synth stat for gcd 
 
 ### Executing Floorplan on synth netlist:
 Use command `make floorplan`
 
-Image W5p7
-Image W5p8
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p7.png)
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p8.png)
 
 In log file following subtasks logs are generated:
 1. 2_1_floorplan: Initializes design, reads libs,lef, checks setup and reapaits tie_lo and tie_hi fanout
@@ -130,37 +134,36 @@ These are the subtasks of floorplan.
 
 In the results directory Openroad Database (odb) are created for each intermediate steps with same name as that of log files. Along with that sdc and floorplan.tcl file and final odb 2_floorplan.odb is also generated. 
 
-Image W5p9
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p9.png)
 
 To view floorplan view with openroad use command 
 ```cd results/nangate45/gcd/base/
 openroad -gui -db  2_floorplan.odb```
 
-Image W5p10
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p10.png)
 
 ### Executing Placement on Floorplan DB:
 
 Use the command `make place` to execute placement on the floorplan DB.
 
-Image W5p11
-Image W5p12
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p11.png)
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p12.png)
 
 Placement has following subtasks under it:
 1. 3_1_place_gp_skip_io: If Iopins are unplaced it will do global placement prior to IO placement.
-Image W5p13
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p13.png)
 
 2. 3_2_place_iop: Perform IO placement if it is not done
-Image W5p14
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p14.png)
 
 3. 3_3_place_gp: Global placement with Iopins placed.
-Image W5p15
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p15.png)
 
 4. 3_4_place_resized: Performs resizing of cells and buffering of nets
-Image W5p16
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p16.png)
 
 5. 3_5_place_dp: Detail placement stage
-Image W5p17
-
+![Image](https://github.com/Santosh3672/RISC-V_Tapeout_Programm/blob/main/Week5%3A%20OpenRoad/Image%20W5/W5p17.png)
 
 Conclusion:
 In this repository we were able to install openroad-flor_scripts in our system and perform Floorplan and Placement of GCD design at nanogate45 platform.
